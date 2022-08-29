@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const {ObjectId } = require("mongodb");
+// const {ObjectId } = require("mongodb");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,7 +19,7 @@ app.options("*", cors(corsConfig));
 app.use(express.json());
 
 //DB connection
-const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0.behpwr6.mongodb.net/?retryWrites=true&w=majority`;
+const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0.behpwr6.mongodb.net/tradeGiant?retryWrites=true&w=majority`;
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -28,6 +28,7 @@ mongoose.connect(url, {
   mongoose.connection.readyState
 );});
 
+//use routes
 (async () => {
      try {
        app.use('/', routes);
