@@ -29,6 +29,11 @@ function errorHandler(err, req, res, next) {
   res.status(500).json({ error: err });
 }
 
+//No route
+app.all("*", (req,res) => {
+  res.send("No Route Found");
+})
+
 app.get("/", (req, res) => {
   res.send("Welcome to Trade Giant Website.");
 });
