@@ -8,6 +8,9 @@ router
   .get(productController.allProduct)
   .post(productController.newProduct);
 
-
+router
+  .route("/:id")
+  .get(productController.singleProduct)
+  .delete(productController.deleteProduct);
 
 module.exports = router;
