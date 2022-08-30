@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongodb");
 const Product = require("../models/products.model");
 
 //GET all product at endpoint'/product'
