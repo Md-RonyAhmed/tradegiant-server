@@ -5,7 +5,7 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 const dbConnect = require("./utils/dbConnect");
-const productRoutes = require("./routes/products");
+const productRoutes = require("./routes/v1/products.route");
 const corsConfig = {
   origin: true,
   credentials: true,
@@ -18,7 +18,7 @@ app.use(express.json());
 dbConnect();
 
 //use routes
-app.use("/product", productRoutes);
+app.use("/api/v1/product", productRoutes);
 
 
 // default error handler
