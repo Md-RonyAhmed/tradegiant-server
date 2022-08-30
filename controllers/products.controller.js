@@ -17,7 +17,7 @@ module.exports.allProduct = (req, res) => {
        });
 };
      
-//POST  all the product at endpoint '/product'
+//POST  all the new product at endpoint '/product'
 module.exports.newProduct = (req, res) => {
   Product.insertMany(req.body, (err) => {
     if (err) {
