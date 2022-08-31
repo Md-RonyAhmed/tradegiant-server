@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const dbConnect = require("./utils/dbConnection");
 const productRoutes = require("./routes/v1/products.route");
+const userRoutes = require("./routes/v1/users.route");
 const verifyJWT = require("./middlewares/jwtVerification.middleware");
 
 const corsConfig = {
@@ -18,8 +19,11 @@ app.use(express.json());
 //DB Function called
 dbConnect();
 
-//use routes
+//use product routes
 app.use("/api/v1/product",productRoutes);
+
+//use user routes
+app.use("/api/v1/user",userRoutes);
 
 
 // default error handler
