@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 const dbConnect = require("./utils/dbConnection");
+
 const productRoutes = require("./routes/v1/products.route");
+
 const corsConfig = {
   origin: true,
   credentials: true,
