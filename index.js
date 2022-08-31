@@ -1,20 +1,25 @@
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 const dbConnect = require("./utils/dbConnection");
 const productRoutes = require("./routes/v1/products.route");
-const cors = require("./middlewares/cors.middleware");
+const verifyJWT = require("./middlewares/jwtVerification.middleware");
 
-app.use(cors.cors);
-app.options("*", cors.cors);
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+app.use(cors(corsConfig));
+app.options("*", cors(corsConfig));
 app.use(express.json());
 
 //DB Function called
 dbConnect();
 
 //use routes
-app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/product",productRoutes);
 
 
 // default error handler
