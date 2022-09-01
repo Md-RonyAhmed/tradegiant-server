@@ -2,7 +2,6 @@ const mongoose = require("mongoose"); //import mongoose
 
 // users schema
 const UserSchema = new mongoose.Schema({
-  name: String,
   email: String,
   role: String
 });
