@@ -1,19 +1,5 @@
 const User = require("../models/users.model");
 
-// Add normal user
-module.exports.setUser = (req, res) => {
-     const email = req.params.email;
-     const user = req.body;
-     const filter = { email: email };
-     const options = { upsert: true };
-     const updateDoc = {
-       $set: user,
-     };
-     const result = User.findOneAndUpdate(filter, updateDoc, options);
-     res.send({ result });
-}
-
-
 //GET all user at endpoint'/user'
 module.exports.getAllUser = (req, res) => {
   User.find({})
@@ -30,4 +16,17 @@ module.exports.getAllUser = (req, res) => {
         });
       }
     });
+};
+
+// Add normal user
+module.exports.setUser = async (req, res) => {
+  const email = req.params.email;
+  const user = req.body;
+  const filter = { email: email };
+  const options = { upsert: true };
+  const updateDoc = {
+    $set: user,
+  };
+  const result = await User.updateOne(filter, updateDoc, options);
+  res.send({ result });
 };
