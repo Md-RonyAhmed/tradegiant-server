@@ -11,10 +11,10 @@ router
      .put(userController.setUser);
      // .delete(userController.deleteUser);
   
-// router
-//      .route("/admin/:email")
-//      .get(userController.getUserAdmin)
-//      .put(userController.setUserAdmin);
+router
+     .route("/admin/:email")
+     .get(userController.getUserAdmin)
+     .put(userController.setUserAdmin);
 
 
 module.exports = router;
