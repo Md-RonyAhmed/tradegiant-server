@@ -49,3 +49,21 @@ module.exports.setUserAdmin = async (req, res) => {
   const result = await User.updateOne(filter, updateDoc);
   res.send(result );
 };
+
+// DELETE user
+module.exports.deleteUser = (req, res) => {
+  const email = req.params.email;
+  const filter = { email: email };
+  User.deleteOne(filter).exec((err) => {
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        message: "Successfully deleted the user",
+      });
+    }
+  });  
+};
+
