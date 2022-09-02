@@ -6,6 +6,30 @@ module.exports.allProduct = async (req, res) => {
   const pageNumber = Number(req.query.pageNumber);
   try {
     const products = await Product.find()
+      .select({ __v: 0 })
+      .skip(limit * pageNumber)
+      .limit(limit);
+
+    const count = await Product.estimatedDocumentCount();
+
+    if (!products?.length) {
+      return res.send({ success: false, error: "No product found" });
+    }
+
+    res.send({ success: true, data: products, count });
+  } catch (error) {
+    res.status(500).json({
+      error: "There was a server side error!",
+    });
+  }
+};
+
+//GET latest products with pagination at endpoint'/product'
+module.exports.latestProducts = async (req, res) => {
+  const limit = Number(req.query.limit);
+  const pageNumber = Number(req.query.pageNumber);
+  try {
+    const products = await Product.find()
       .sort({ $natural: -1 })
       .select({ __v: 0 })
       .skip(limit * pageNumber)

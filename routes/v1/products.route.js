@@ -9,6 +9,10 @@ router
   .post(productController.newProduct);
 
 router
+  .route("/latest")
+  .get(productController.latestProducts);
+
+router
   .route("/:id")
   .get(productController.singleProduct)
   .delete(productController.deleteProduct);
