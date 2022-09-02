@@ -1,21 +1,28 @@
 const Product = require("../models/products.model");
 
-//GET all product at endpoint'/product'
-module.exports.allProduct = (req, res) => {
-  Product.find({})
-    .select({ __v: 0 })
-    .exec((err, data) => {
-      if (err) {
-        res.status(500).json({
-          error: "There was a server side error!",
-        });
-      } else {
-        res.status(200).json({
-          data,
-          message: "Success",
-        });
-      }
+//GET all product with pagination at endpoint'/product'
+module.exports.allProduct = async (req, res) => {
+  const limit = Number(req.query.limit);
+  const pageNumber = Number(req.query.pageNumber);
+  try {
+    const products = await Product.find()
+      .sort({ $natural: -1 })
+      .select({ __v: 0 })
+      .skip(limit * pageNumber)
+      .limit(limit);
+
+    const count = await Product.estimatedDocumentCount();
+
+    if (!products?.length) {
+      return res.send({ success: false, error: "No product found" });
+    }
+
+    res.send({ success: true, data: products, count });
+  } catch (error) {
+    res.status(500).json({
+      error: "There was a server side error!",
     });
+  }
 };
 
 //GET a product at endpoint'/product'
